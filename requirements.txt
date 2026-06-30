@@ -1,0 +1,12 @@
+telethon
+groq
+apscheduler
+pytz
+edge-tts
+google-genai
+requests
+gtts
+google-cloud-texttospeech
+aiohttp
+edge-tts
+openai

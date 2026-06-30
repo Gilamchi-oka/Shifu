@@ -1,0 +1,93 @@
+{
+  "7501202985": {
+    "entries": [
+      {
+        "date": "07.06.2026 22:43",
+        "text": "чувствовала себя соблазнительной",
+        "sentiment": "positive"
+      },
+      {
+        "date": "10.06.2026 20:05",
+        "text": "получила грубость, обидно",
+        "sentiment": "negative"
+      },
+      {
+        "date": "11.06.2026 20:00",
+        "text": "люблю, поддерживаю его всегда",
+        "sentiment": "positive"
+      }
+    ],
+    "overall_mood": "в целом хорошее",
+    "bond_level": "близкий человек",
+    "last_updated": "11.06.2026 20:00",
+    "positive_count": 2,
+    "negative_count": 1
+  },
+  "6249276112": {
+    "entries": [
+      {
+        "date": "07.06.2026 23:54",
+        "text": "Чувствовала себя разочарованной",
+        "sentiment": "negative"
+      },
+      {
+        "date": "09.06.2026 16:16",
+        "text": "интересный разговор, весело",
+        "sentiment": "positive"
+      }
+    ],
+    "overall_mood": "смешанное, осторожное",
+    "bond_level": "незнакомец",
+    "last_updated": "09.06.2026 16:16",
+    "positive_count": 1,
+    "negative_count": 1
+  },
+  "777000": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  },
+  "8234178181": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  },
+  "7239338164": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  },
+  "8739294702": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  },
+  "6610914412": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  },
+  "8452386730": {
+    "entries": [],
+    "overall_mood": "нейтральное",
+    "bond_level": "незнакомец",
+    "last_updated": null,
+    "positive_count": 0,
+    "negative_count": 0
+  }
+}

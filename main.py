@@ -219,7 +219,7 @@ def get_proactive_reason(user_id: int) -> str | None:
 
 # ── Напоминания ───────────────────────────────────────────────────────────────
 
-async def send_reminder(user_id: int, text: str):
+async def send_reminder(user_id: int, text: str) -> bool:
     msgs = [
         f"⏰ напоминаю: {text}",
         f"Господин, ты просил напомнить: {text}",
@@ -228,10 +228,14 @@ async def send_reminder(user_id: int, text: str):
     try:
         entity = await client.get_input_entity(user_id)
         await client.send_message(entity, random.choice(msgs))
+        print(f"✅ Напоминание отправлено {user_id}: {text[:30]}")
+        return True
     except ValueError:
         print(f"⚠️ Не могу найти entity для {user_id}, пропускаю напоминание")
+        return False
     except Exception as e:
         print(f"⚠️ send_reminder error для {user_id}: {e}")
+        return False
 
 
 async def check_tasks():
@@ -241,11 +245,8 @@ async def check_tasks():
     updated = False
 
     for task in tasks:
-        # ── Формат 1: повторяющиеся задачи { "time": "08:00", "repeat": "daily" } ──
         if task.get("repeat") == "daily" and task.get("time"):
             last_sent = task.get("last_sent_date")
-
-            # Уже отправляли сегодня — пропускаем
             if last_sent == today:
                 continue
 
@@ -254,16 +255,18 @@ async def check_tasks():
             except Exception:
                 continue
 
-            # Время пришло (с окном ±2 минуты чтобы не пропустить)
             task_time = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             diff_minutes = (now - task_time).total_seconds() / 60
 
-            if 0 <= diff_minutes <= 2:
-                await send_reminder(task["user_id"], task["text"])
-                task["last_sent_date"] = today
-                updated = True
+            # окно "догонки" расширено: сработает в любой момент
+            # от назначенного времени до 6 часов после, а не только 2 минуты
+            if 0 <= diff_minutes <= 360:
+                sent = await send_reminder(task["user_id"], task["text"])
+                if sent:
+                    task["last_sent_date"] = today
+                    updated = True
+                # если не отправилось — last_sent_date не ставится → попробует снова через минуту
 
-        # ── Формат 2: одноразовые задачи { "remind_at": "2024-01-01T15:00:00" } ──
         elif task.get("remind_at") and not task.get("done"):
             try:
                 remind_at = datetime.fromisoformat(task["remind_at"])
@@ -273,10 +276,13 @@ async def check_tasks():
                 continue
 
             if now >= remind_at:
-                await send_reminder(task["user_id"], task["text"])
-                task["done"] = True
-                updated = True
+                sent = await send_reminder(task["user_id"], task["text"])
+                if sent:
+                    task["done"] = True
+                    updated = True
 
+    if updated:
+        save_tasks(tasks)
     if updated:
         save_tasks(tasks)
 
